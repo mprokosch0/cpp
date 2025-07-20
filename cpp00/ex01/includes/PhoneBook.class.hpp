@@ -8,9 +8,9 @@
 class PhoneBook
 {
 	private :
-		Contact	contacts[NB_CONTACTS + 1];
-		short oldest;
-		void	display_contact(int index) const;
+		Contact	_contacts[NB_CONTACTS + 1];
+		short 	_oldest;
+		void	_display_contact(int index) const;
 	public :
 		PhoneBook(void);
 		~PhoneBook(void);
