@@ -17,10 +17,28 @@ void	Harl::complain(std::string level)
 {
 	void (Harl::*func[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 	std::string strs[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
-	for (size_t i = 0; i < 4; i++)
-	{
+	int i;
+	for (i = 0; i < 4; i++)
 		if (strs[i] == level)
-			(this->*func[i])();
+			break ;
+	switch (i + 1)
+	{
+	case 1:
+		(this->*func[0])();
+		/* fall through */
+	case 2:
+		(this->*func[1])();
+		/* fall through */
+	case 3:
+		(this->*func[2])();
+		/* fall through */
+	case 4:
+		(this->*func[3])();
+		break ;
+	default:
+		std::cout << "\n[Probably complaining about insignificant problems]\n"
+				<< std::endl;
+		break;
 	}
 	return ;
 }
