@@ -9,22 +9,21 @@ int main( void )
 	Point point(0.5f, 1);
 
 	if (bsp(a, b, c, point))
-		std::cout << "The point (" << point.getX() << ", "
-				  << point.getY() << ") is in the triangle" << std::endl;
+		std::cout << GREEN "The point (" << point.getX() << ", "
+				  << point.getY() << ") is in the triangle" RESET << std::endl;
 	else
-		std::cout << "The point (" << point.getX() << ", "
-				  << point.getY() << ") isn't in the triangle" << std::endl;
+		std::cout << RED "The point (" << point.getX() << ", "
+				  << point.getY() << ") isn't in the triangle" RESET << std::endl;
 
 
-	point = Point(-1, 1);
+	point = Point(0, -0.2f);
 
 	if (bsp(a, b, c, point))
-		std::cout << "The point (" << point.getX() << ", "
-				  << point.getY() << ") is in the triangle" << std::endl;
+		std::cout << GREEN "The point (" << point.getX() << ", "
+				  << point.getY() << ") is in the triangle" RESET << std::endl;
 	else
-		std::cout << "The point (" << point.getX() << ", "
-				  << point.getY() << ") isn't in the triangle" << std::endl;
-
+		std::cout << RED "The point (" << point.getX() << ", "
+				  << point.getY() << ") isn't in the triangle" RESET << std::endl;
 
 	return 0;
 }

@@ -5,7 +5,7 @@
 
 Fixed &Fixed::operator=(Fixed const &right)
 {
-	//std::cout << "Fixed operator = called" << std::endl;
+	//std::cout << GRAY "Fixed operator = called" RESET << std::endl;
 	this->_value = right.getRawBits();
 	return *this;
 }
@@ -55,7 +55,7 @@ int Fixed::operator!=(Fixed const &right) const
 Fixed Fixed::operator+(Fixed const &right) const
 {
 	Fixed result;
-	//std::cout << "Fixed operator + called" << std::endl;
+	//std::cout << GRAY "Fixed operator + called" RESET << std::endl;
 	result.setRawBits(this->getRawBits() + right.getRawBits());
 	return (result);
 }
@@ -63,7 +63,7 @@ Fixed Fixed::operator+(Fixed const &right) const
 Fixed Fixed::operator-(Fixed const &right) const
 {
 	Fixed result;
-	//std::cout << "Fixed operator - called" << std::endl;
+	//std::cout << GRAY "Fixed operator - called" RESET << std::endl;
 	result.setRawBits(this->getRawBits() - right.getRawBits());
 	return (result);
 }
@@ -71,7 +71,7 @@ Fixed Fixed::operator-(Fixed const &right) const
 Fixed Fixed::operator*(Fixed const &right) const
 {
 	Fixed result;
-	//std::cout << "Fixed operator * called" << std::endl;
+	//std::cout << GRAY "Fixed operator * called" RESET << std::endl;
 	result.setRawBits((this->getRawBits() * right.getRawBits()) >> _fracBits);
 	return (result);
 }
@@ -79,7 +79,7 @@ Fixed Fixed::operator*(Fixed const &right) const
 Fixed Fixed::operator/(Fixed const &right) const
 {
 	Fixed result;
-	//std::cout << "Fixed operator / called" << std::endl;
+	//std::cout << GRAY "Fixed operator / called" RESET << std::endl;
 	result.setRawBits((this->getRawBits() >> _fracBits) * right.getRawBits());
 	return (result);
 }
@@ -92,14 +92,14 @@ std::ostream &operator<<(std::ostream &o, Fixed const &obj)
 
 Fixed &Fixed::operator--(void)
 {
-	//std::cout << "Fixed operator -- (prefix) called" << std::endl;
+	//std::cout << GRAY "Fixed operator -- (prefix) called" RESET << std::endl;
 	this->_value--;
 	return (*this);
 }
 
 Fixed &Fixed::operator++(void)
 {
-	//std::cout << "Fixed operator ++ (prefix) called" << std::endl;
+	//std::cout << GRAY "Fixed operator ++ (prefix) called" RESET << std::endl;
 	this->_value++;
 	return (*this);
 }
@@ -107,7 +107,7 @@ Fixed &Fixed::operator++(void)
 Fixed Fixed::operator--(int)
 {
 	Fixed result = *this;
-	//std::cout << "Fixed operator -- (postfix) called" << std::endl;
+	//std::cout << GRAY "Fixed operator -- (postfix) called" RESET << std::endl;
 	this->_value--;
 	return (result);	
 }
@@ -115,7 +115,7 @@ Fixed Fixed::operator--(int)
 Fixed Fixed::operator++(int)
 {
 	Fixed result = *this;
-	//std::cout << "Fixed operator ++ (postfix) called" << std::endl;
+	//std::cout << GRAY "Fixed operator ++ (postfix) called" RESET << std::endl;
 	this->_value++;
 	return (result);
 }
@@ -125,33 +125,33 @@ Fixed Fixed::operator++(int)
 
 Fixed::Fixed(void): _value(0)
 {
-	//std::cout << "Fixed default constructor called" << std::endl;
+	//std::cout << GRAY "Fixed default constructor called" RESET << std::endl;
 	return ;
 }
 
 Fixed::Fixed(int const nb): _value(nb << _fracBits)
 {
-	//std::cout << "Fixed int constructor called" << std::endl;
+	//std::cout << GRAY "Fixed int constructor called" RESET << std::endl;
 	return ;
 }
 
 Fixed::Fixed(float const nb)
 {
 	this->_value = roundf(nb * (1 << _fracBits));
-	//std::cout << "Fixed float constructor called" << std::endl;
+	//std::cout << GRAY "Fixed float constructor called" RESET << std::endl;
 	return ;
 }
 
 Fixed::Fixed(Fixed const &rhs)
 {
-	//std::cout << "Fixed copy constructor called" << std::endl;
+	//std::cout << GRAY "Fixed copy constructor called" RESET << std::endl;
 	*this = rhs;
 	return ;
 }
 
 Fixed::~Fixed(void)
 {
-	//std::cout << "Fixed destructor called" << std::endl;
+	//std::cout << GRAY "Fixed destructor called" RESET << std::endl;
 	return ;
 }
 

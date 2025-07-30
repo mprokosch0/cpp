@@ -4,6 +4,12 @@
 # include <iostream>
 # include <string>
 
+#define GREEN "\033[32m"
+#define RESET "\033[0m"
+#define YELLOW "\033[33m"
+#define RED "\033[31m"
+#define GRAY "\033[90m"
+
 class Fixed
 {
 	private:

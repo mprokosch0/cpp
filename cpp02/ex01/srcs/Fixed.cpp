@@ -3,40 +3,40 @@
 
 Fixed &Fixed::operator=(Fixed const &rhs)
 {
-	std::cout << "Fixed operator = called" << std::endl;
+	std::cout << GRAY "Fixed operator = called" RESET << std::endl;
 	this->_value = rhs.getRawBits();
 	return *this;
 }
 
 Fixed::Fixed(void): _value(0)
 {
-	std::cout << "Fixed default constructor called" << std::endl;
+	std::cout << GRAY "Fixed default constructor called" RESET << std::endl;
 	return ;
 }
 
 Fixed::Fixed(int const nb): _value(nb << _fracBits)
 {
-	std::cout << "Fixed int constructor called" << std::endl;
+	std::cout << GRAY "Fixed int constructor called" RESET << std::endl;
 	return ;
 }
 
 Fixed::Fixed(float const nb)
 {
 	this->_value = roundf(nb * (1 << _fracBits));
-	std::cout << "Fixed float constructor called" << std::endl;
+	std::cout << GRAY "Fixed float constructor called" RESET << std::endl;
 	return ;
 }
 
 Fixed::Fixed(Fixed const &rhs)
 {
-	std::cout << "Fixed copy constructor called" << std::endl;
+	std::cout << GRAY "Fixed copy constructor called" RESET << std::endl;
 	*this = rhs;
 	return ;
 }
 
 Fixed::~Fixed(void)
 {
-	std::cout << "Fixed destructor called" << std::endl;
+	std::cout << GRAY "Fixed destructor called" RESET << std::endl;
 	return ;
 }
 
