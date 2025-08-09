@@ -2,19 +2,20 @@
 
 HumanB::HumanB(std::string name): _name(name), _weapon(NULL)
 {
-	std::cout << this->_name << " HumanB constructor called" << std::endl;
+	std::cout << GRAY << this->_name << " HumanB constructor called" RESET << std::endl;
 	return ;
 }
 
 HumanB::~HumanB(void)
 {
-	std::cout << this->_name << " HumanB destctructor called" << std::endl;
+	std::cout << GRAY << this->_name << " HumanB destctructor called" RESET << std::endl;
 	return ;
 }
 
 void	HumanB::attack(void) const
 {
-	std::cout << this->_name << " attacks with their " << this->_weapon->getType() << std::endl;
+	std::cout << PINK << this->_name << GREEN " attacks with their " RED
+			  << this->_weapon->getType() << RESET << std::endl;
 	return ;
 }
 
