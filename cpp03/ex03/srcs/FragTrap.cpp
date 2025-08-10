@@ -15,7 +15,7 @@ FragTrap &FragTrap::operator=(FragTrap const & right)
 
 //Constructor/destructors-------------------------------------------------
 
-FragTrap::FragTrap(void)
+FragTrap::FragTrap(void): ClapTrap()
 {
 	std::cout << GRAY "Default FragTrap constructor called" RESET << std::endl;
 	this->_attackDamage = 30;
@@ -24,7 +24,7 @@ FragTrap::FragTrap(void)
 	return ;
 }
 
-FragTrap::FragTrap(std::string const & name)
+FragTrap::FragTrap(std::string const & name): ClapTrap()
 {
 	std::cout << GRAY "Named FragTrap constructor called" RESET << std::endl;
 	this->_attackDamage = 30;
@@ -34,10 +34,9 @@ FragTrap::FragTrap(std::string const & name)
 	return ;
 }
 
-FragTrap::FragTrap(FragTrap const & right)
+FragTrap::FragTrap(FragTrap const & right): ClapTrap(right)
 {
 	std::cout << GRAY "Copy ClapTrap constructor called" RESET << std::endl;
-	*this = right;
 	return ;
 }
 

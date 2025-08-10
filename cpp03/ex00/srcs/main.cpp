@@ -8,10 +8,11 @@ int main(void)
 
 	a.attack("bonjour");
 	a.beRepaired(10);
-	a.takeDamage(10);
+	a.takeDamage(7);
 	a.attack("bonjour");
 	a.attack("bonjour");
 	a.attack("bonjour");
+	a.takeDamage(2);
 	a.attack("bonjour");
 	a.attack("bonjour");
 	a.attack("bonjour");

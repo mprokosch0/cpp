@@ -5,10 +5,10 @@
 int main(void)
 {
 	ScavTrap a("tobby");
-	ScavTrap b;
+	FragTrap b;
 	FragTrap c("tom");
 
-	b.setName("bob");
+	b = c;
 	a.attack(b.getName());
 	c.highFivesGuys();
 	return 0;

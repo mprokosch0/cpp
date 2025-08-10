@@ -15,7 +15,7 @@ ClapTrap & ClapTrap::operator=(ClapTrap const & right)
 
 //Constructors/destructors----------------------------------------------------
 
-ClapTrap::ClapTrap(void): _hitPoints(10), _energyPoints(10), _attackDamage(0)
+ClapTrap::ClapTrap(void): _name("default"), _hitPoints(10), _energyPoints(10), _attackDamage(0)
 {
 	std::cout << GRAY "Default ClapTrap constructor called" RESET << std::endl;
 	return ;
@@ -38,42 +38,59 @@ ClapTrap::~ClapTrap(void)
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-	if (this->_energyPoints)
+	if (this->_energyPoints && this->_hitPoints > 0 && this->_hitPoints <= 10)
 	{
 		std::cout << GREEN "ClapTrap " << this->_name << " repairs himself "
 			  << amount << " hitPoints !" << RESET << std::endl;
+		if (amount + this->_hitPoints > 10)
+			this->_hitPoints = 10;
+		else
+			this->_hitPoints += amount;
 		this->_energyPoints--;
 	}
+	else if (this->_energyPoints == 0)
+		std::cout << PINK "ClapTrap " << this->_name << " can't be repaired, he has no "
+					 YELLOW "energy" PINK " left" << RESET << std::endl;
 	else
-	{
-		std::cout << YELLOW "ClapTrap " << this->_name << " can't be repaired, he has no energy left"
+		std::cout << PINK "ClapTrap " << this->_name << " can't be repaired, he already " RED "died"
 				   << RESET << std::endl;
-	}
 	return ;
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-	std::cout << RED "ClapTrap " << this->_name << " took "
+	if (this->_hitPoints > (int)amount)
+	{
+		std::cout << RED "ClapTrap " << this->_name << " took "
 			  << amount << " points of damage !" << RESET << std::endl;
-	this->_hitPoints -= amount;
+		this->_hitPoints -= amount;
+	}
+	else if (this->_hitPoints > 0)
+	{
+		this->_hitPoints = 0;
+		std::cout << PINK "ClapTrap " << this->_name << " took " << amount
+				  << " damages and is now" RED " dead." << RESET << std::endl;
+	}
+	else
+		std::cout << PINK "ClapTrap " << this->_name << " is already " RED "dead."
+				<< RESET << std::endl;
 	return ;
 }
 
 void ClapTrap::attack(const std::string &target)
 {
-	if (this->_energyPoints)
+	if (this->_energyPoints && this->_hitPoints)
 	{
 		std::cout << BLUE "ClapTrap " << this->_name << " attacks "
 			  << target << ", causing " << this->_attackDamage
 			  << " points of damage !" << RESET << std::endl;
 		this->_energyPoints--;
 	}
+	else if (!this->_energyPoints)
+		std::cout << PINK "ClapTrap " << this->_name << " can't attack, he has no "
+					YELLOW "energy" PINK " left" << RESET << std::endl;
 	else
-	{
-		std::cout << YELLOW "ClapTrap " << this->_name << " cant't attack, he has no energy left"
+		std::cout << PINK "ClapTrap " << this->_name << " can't attack, he is " RED "dead."
 				  << RESET << std::endl;
-	}
-	
 	return ;
 }

@@ -12,6 +12,7 @@
 #define RED "\033[31m"
 #define BLUE "\033[34m"
 #define GRAY "\033[90m"
+# define PINK "\033[35m"
 
 class ClapTrap
 {

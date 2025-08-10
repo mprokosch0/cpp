@@ -38,8 +38,8 @@ class Fixed
 		Fixed operator-(Fixed const & right) const;
 		Fixed operator*(Fixed const & right) const;
 		Fixed operator/(Fixed const & right) const;
-		Fixed &operator--(void);
-		Fixed &operator++(void);
+		Fixed operator--(void);
+		Fixed operator++(void);
 		Fixed operator--(int);
 		Fixed operator++(int);
 		static Fixed min(Fixed &nb1, Fixed &nb2);

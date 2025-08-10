@@ -90,14 +90,14 @@ std::ostream &operator<<(std::ostream &o, Fixed const &obj)
 	return (o);
 }
 
-Fixed &Fixed::operator--(void)
+Fixed Fixed::operator--(void)
 {
 	//std::cout << "Fixed operator -- (prefix) called" << std::endl;
 	this->_value--;
 	return (*this);
 }
 
-Fixed &Fixed::operator++(void)
+Fixed Fixed::operator++(void)
 {
 	//std::cout << "Fixed operator ++ (prefix) called" << std::endl;
 	this->_value++;

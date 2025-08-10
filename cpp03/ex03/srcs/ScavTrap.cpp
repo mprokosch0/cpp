@@ -15,7 +15,7 @@ ScavTrap &ScavTrap::operator=(ScavTrap const & right)
 
 //Constructor/destructors-------------------------------------------------
 
-ScavTrap::ScavTrap(void)
+ScavTrap::ScavTrap(void): ClapTrap()
 {
 	std::cout << GRAY "Default ScavTrap constructor called" RESET << std::endl;
 	this->_attackDamage = 20;
@@ -34,10 +34,9 @@ ScavTrap::ScavTrap(std::string const & name)
 	return ;
 }
 
-ScavTrap::ScavTrap(ScavTrap const & right)
+ScavTrap::ScavTrap(ScavTrap const & right): ClapTrap(right)
 {
 	std::cout << GRAY "Copy ClapTrap constructor called" RESET << std::endl;
-	*this = right;
 	return ;
 }
 
@@ -51,24 +50,31 @@ ScavTrap::~ScavTrap(void)
 
 void ScavTrap::guardGate(void)
 {
-	std::cout << "ScavTrap: " << this->_name << " is now in Gate keeper mode" << std::endl;
+	std::cout << "ScavTrap: " << this->_name << " is now in Gate keeper mode" RESET << std::endl;
 	return ;
+}
+
+
+std::string const & ScavTrap::getName(void)
+{
+	return this->_name;
 }
 
 void ScavTrap::attack(const std::string &target)
 {
-	if (this->_energyPoints)
+	if (this->_energyPoints && this->_hitPoints > 0)
 	{
 		std::cout << BLUE "ScavTrap " << this->_name << " attacks "
 			  << target << ", causing " << this->_attackDamage
-			  << " points of damage !" RESET << std::endl;
+			  << " points of damage !" << RESET << std::endl;
 		this->_energyPoints--;
 	}
+	else if (!this->_energyPoints)
+		std::cout << PINK "ScavTrap " << this->_name << " can't attack, he has no "
+					 YELLOW "energy" PINK " left" RESET << std::endl;
 	else
-	{
-		std::cout << YELLOW "ScavTrap " << this->_name << " cant't attack, he has no energy left" RESET
+		std::cout << PINK "ScavTrap " << this->_name << " can't attack, he is " RED "dead" RESET
 				  << std::endl;
-	}
 	
 	return ;
 }
