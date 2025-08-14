@@ -6,8 +6,7 @@
 Point &Point::operator=(Point const &right)
 {
 	std::cout << GRAY "Point operator = called" RESET << std::endl;
-	this->_x = right._x;
-	this->_y = right._y;
+	(void)right;
 	return (*this);
 }
 
@@ -19,16 +18,15 @@ Point::Point(void): _x(0), _y(0)
 	return ;
 }
 
-Point::Point(Fixed const x, Fixed const y): _x(x), _y(y)
+Point::Point(float const x, float const y): _x(x), _y(y)
 {
 	std::cout << GRAY "2-const point constructor called" RESET << std::endl;
 	return ;
 }
 
-Point::Point(Point const & right)
+Point::Point(Point const & right): _x(right.getX()), _y(right.getY())
 {
 	std::cout << GRAY "Copy point constructor called" RESET << std::endl;
-	*this = right;
 	return ;
 }
 

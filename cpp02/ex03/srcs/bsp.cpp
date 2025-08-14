@@ -3,8 +3,9 @@
 
 static Fixed sign(Point const &p1, Point const &p2, Point const &p3)
 {
-	Point vect1(p1.getX() - p3.getX(), p1.getY() - p3.getY());
-	Point vect2(p2.getX() - p3.getX(), p2.getY() - p3.getY());
+	Point vect1((p1.getX().toFloat() - p3.getX().toFloat()), p1.getY().toFloat() - p3.getY().toFloat());
+	Point vect2(p2.getX().toFloat() - p3.getX().toFloat(), p2.getY().toFloat() - p3.getY().toFloat());
+	
 	return (vect1.getX() * vect2.getY() - vect1.getY() * vect2.getX());
 }
 

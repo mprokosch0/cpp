@@ -7,12 +7,12 @@
 class Point
 {
 	private:
-		Fixed _x;
-		Fixed _y;
+		Fixed const _x;
+		Fixed const _y;
 	
 	public:
 		Point(void);
-		Point(Fixed const x, Fixed const y);
+		Point(float const x, float const y);
 		Point(Point const & right);
 		~Point(void);
 	

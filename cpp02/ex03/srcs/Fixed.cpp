@@ -120,7 +120,6 @@ Fixed Fixed::operator++(int)
 	return (result);
 }
 
-
 //Constructors / Destructors---------------------------------------------------
 
 Fixed::Fixed(void): _value(0)
