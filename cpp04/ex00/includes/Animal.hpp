@@ -1,0 +1,32 @@
+#ifndef ANIMAL_HPP
+# define ANIMAL_HPP
+
+# include <iostream>
+# include <string>
+
+#define GREEN "\033[32m"
+#define RESET "\033[0m"
+#define YELLOW "\033[33m"
+#define RED "\033[31m"
+#define BLUE "\033[34m"
+#define GRAY "\033[90m"
+# define PINK "\033[35m"
+
+class Animal
+{
+	protected:
+		std::string _type;
+
+	public:
+		Animal(void);
+		Animal(std::string const & name);
+		Animal(Animal const & right);
+		~Animal(void);
+
+	public:
+		Animal & operator=(Animal const & right);
+		virtual void makeSound() const;
+		std::string const & getType() const;
+};
+
+#endif
