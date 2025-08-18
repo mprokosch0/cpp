@@ -4,7 +4,7 @@ CXX = c++
 
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
-SRCS = srcs/main.cpp srcs/Animal.cpp srcs/Dog.cpp srcs/Cat.cpp srcs/WrongAnimal srcs/WrongCat\
+SRCS = srcs/main.cpp srcs/Animal.cpp srcs/Dog.cpp srcs/Cat.cpp srcs/WrongAnimal.cpp srcs/WrongCat.cpp\
 
 OBJS_DIR = objs
 

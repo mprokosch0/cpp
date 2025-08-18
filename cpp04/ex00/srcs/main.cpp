@@ -12,15 +12,16 @@ int main()
 	i->makeSound();
 	j->makeSound();
 	meta->makeSound();
-	// delete i;
-	// delete j;
-	// delete meta;
+	delete i;
+	delete j;
+	delete meta;
 	const WrongAnimal* anim1 = new WrongAnimal();
 	const WrongAnimal* wrongcat = new WrongCat();
 	std::cout << anim1->getType() << " " << std::endl;
 	std::cout << wrongcat->getType() << " " << std::endl;
-	anim1->getType();
-	wrongcat->getType();
-
+	anim1->makeSound();
+	wrongcat->makeSound();
+	delete anim1;
+	delete wrongcat;
 	return 0;
 }

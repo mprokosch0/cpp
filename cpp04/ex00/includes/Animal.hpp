@@ -21,7 +21,7 @@ class Animal
 		Animal(void);
 		Animal(std::string const & name);
 		Animal(Animal const & right);
-		~Animal(void);
+		virtual ~Animal(void);
 
 	public:
 		Animal & operator=(Animal const & right);
