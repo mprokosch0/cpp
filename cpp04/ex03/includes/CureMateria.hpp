@@ -3,13 +3,17 @@
 
 #include "AMateria.hpp"
 
-class CureMateria
+class CureMateria: public AMateria
 {
-	private:
-		/* data */
 	public:
-		CureMateria(/* args */);
-		~CureMateria();
+		CureMateria(void);
+		CureMateria(CureMateria const & right);
+		CureMateria & operator=(CureMateria const & right);
+		~CureMateria(void);
+
+	public:
+		void use(ICharacter & target);
+		AMateria* clone() const;
 };
 
 #endif

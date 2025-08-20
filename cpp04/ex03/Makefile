@@ -1,10 +1,11 @@
-NAME = animals
+NAME = Materias
 
 CXX = c++
 
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
-SRCS = srcs/main.cpp \
+SRCS = srcs/main.cpp srcs/AMateria.cpp srcs/MateriaSource.cpp \
+	   srcs/IceMateria.cpp srcs/CureMateria.cpp srcs/Character.cpp
 
 OBJS_DIR = objs
 

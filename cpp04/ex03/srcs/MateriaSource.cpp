@@ -6,16 +6,29 @@
 MateriaSource & MateriaSource::operator=(MateriaSource const & right)
 {
 	for (int i = 0; i < 4; i++)
-		this->_MateriaSrc[i] = right._MateriaSrc[i];
+	{
+		if (this->_MateriaSrc[i])
+			delete this->_MateriaSrc[i];
+		if (!right._MateriaSrc[i])
+			this->_MateriaSrc[i] = NULL;
+		else
+			this->_MateriaSrc[i] = right._MateriaSrc[i]->clone();
+	}
 	return *this;
 }
 
 //Constructors/destructors-------------------------------------------
 
-MateriaSource::MateriaSource(void){}
+MateriaSource::MateriaSource(void)
+{
+	for (int i = 0; i < 4; i++)
+		this->_MateriaSrc[i] = NULL;
+}
 
 MateriaSource::MateriaSource(MateriaSource const & right)
 {
+	for (int i = 0; i < 4; i++)
+		this->_MateriaSrc[i] = NULL;
 	*this = right;
 	return ;
 }
@@ -33,7 +46,11 @@ MateriaSource::~MateriaSource(void)
 void MateriaSource::learnMateria(AMateria *materia)
 {
 	if (!materia)
+	{
+		std::cout << RED "Error: can't learn from a NULL materia" RESET
+				  << std::endl;
 		return ;
+	}
 	for (int i = 0; i < 4; i++)
 	{
 		if (!this->_MateriaSrc[i])
@@ -42,6 +59,8 @@ void MateriaSource::learnMateria(AMateria *materia)
 			return ;
 		}
 	}
+	std::cout << RED "Error: all learn spots are taken" RESET
+				  << std::endl;
 	delete materia;
 	return ;
 }
