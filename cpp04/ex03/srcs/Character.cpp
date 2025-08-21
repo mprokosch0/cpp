@@ -109,6 +109,12 @@ void	Character::equip(AMateria *m)
 				  << std::endl;
 		return ;
 	}
+	if (m->getAssigned())
+	{
+		std::cout << RED "Error: couldn't equip materia it was already equipped by someone" RESET
+				  << std::endl;
+		return ;
+	}
 	int idx;
 	for (idx = 0; idx < 4; idx++)
 	{
@@ -121,6 +127,7 @@ void	Character::equip(AMateria *m)
 				  << std::endl;
 		return ;
 	}
+	m->setAssigned(1);
 	this->_inventory[idx] = m;
 	std::cout << GRAY "Materia " << m->getType()
 			  << " equiped at inventory slot " << idx << RESET

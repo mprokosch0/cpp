@@ -56,6 +56,9 @@ void MateriaSource::learnMateria(AMateria *materia)
 		if (!this->_MateriaSrc[i])
 		{
 			this->_MateriaSrc[i] = materia;
+			std::cout << GRAY "Materia " << materia->getType()
+					  << " learned at slot " << i << RESET
+					  << std::endl;
 			return ;
 		}
 	}
@@ -68,7 +71,7 @@ void MateriaSource::learnMateria(AMateria *materia)
 AMateria* MateriaSource::createMateria(std::string const & type)
 {
 	for (int i = 0; i < 4; i++)
-		if (this->_MateriaSrc[i]->getType() == type)
+		if (this->_MateriaSrc[i] && this->_MateriaSrc[i]->getType() == type)
 			return this->_MateriaSrc[i]->clone();
 	return NULL;
 }

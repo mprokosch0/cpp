@@ -14,13 +14,24 @@ AMateria & AMateria::operator=(AMateria const & right)
 
 AMateria::AMateria(void){}
 
-AMateria::AMateria(std::string const & type): _type(type){}
+AMateria::AMateria(std::string const & type): _type(type), _assigned(0){}
 
-AMateria::AMateria(AMateria const & right): _type(right._type){}
+AMateria::AMateria(AMateria const & right): _type(right._type), _assigned(0){}
 
 AMateria::~AMateria(void){}
 
 //Member functions--------------------------------------------------
+
+int AMateria::getAssigned(void) const
+{
+	return this->_assigned;
+}
+
+void AMateria::setAssigned(int nb)
+{
+	this->_assigned = nb;
+	return ;
+}
 
 std::string const & AMateria::getType() const
 {

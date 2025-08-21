@@ -19,6 +19,7 @@ class AMateria
 {
 	protected:
 		std::string _type;
+		int	_assigned;
 
 	public:
 		AMateria(void);
@@ -31,6 +32,8 @@ class AMateria
 		std::string const & getType() const; //Returns the materia type
 		virtual AMateria* clone() const = 0;
 		virtual void use(ICharacter & target);
+		int getAssigned() const;
+		void setAssigned(int nb);
 };
 
 #endif

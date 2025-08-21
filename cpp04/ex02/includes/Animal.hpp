@@ -21,11 +21,11 @@ class Animal
 		Animal(void);
 		Animal(std::string const & name);
 		Animal(Animal const & right);
-		virtual ~Animal(void) = 0;
+		virtual ~Animal(void);
 
 	public:
 		Animal & operator=(Animal const & right);
-		virtual void makeSound() const;
+		virtual void makeSound() const = 0;
 		std::string const & getType() const;
 };
 

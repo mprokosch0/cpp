@@ -6,7 +6,10 @@
 CureMateria & CureMateria::operator=(CureMateria const & right)
 {
 	if (this != &right)
+	{
 		this->_type = right._type;
+		this->_assigned = right._assigned;
+	}
 	return *this;
 }
 
