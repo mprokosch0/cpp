@@ -17,6 +17,8 @@ int main()
 	src->learnMateria(new IceMateria());
 	src->learnMateria(new IceMateria());
 	src->learnMateria(new IceMateria());
+	tmp = src->createMateria("sieehfbsif");
+	me->equip(tmp);
 	tmp = src->createMateria("ice");
 	me->equip(tmp);
 	tmp = src->createMateria("cure");
