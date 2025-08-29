@@ -78,7 +78,7 @@ static int counting(std::string input, int flag)
 
 static int find_type(std::string input)
 {
-	if (input.length() == 1)
+	if (input.length() == 1 && !std::isdigit(input[0]))
 		return 0;
 	if (is_str_digit(input))
 	{
@@ -126,22 +126,21 @@ static void print_error(int error)
 	}
 }
 
-void print_conversion(char c, int nb, float nbf, double nbd, std::string otherf, std::string other)
+static void print_conversion(char c, int nb, float nbf, double nbd, std::string otherf, std::string other)
 {
 	std::cout << GREEN "char: ";
 	if (other.length())
-		std::cout << "impossible" << std::endl;
+		std::cout << RED "impossible" << std::endl;
 	else if (c % 256 >= 32 && c % 256 < 127)
 		std::cout << '\'' << c << '\'' << std::endl;
 	else
-		std::cout << "Non displayable" << std::endl;
+		std::cout << RED "Non displayable" << std::endl;
 
 	std::cout << YELLOW "int: ";
 	if (other.length())
-		std::cout << "impossible" << std::endl;
+		std::cout << RED "impossible" << std::endl;
 	else
 		std::cout << nb << std::endl;
-
 	std::cout << BLUE "float: ";
 	if (other.length())
 		std::cout << otherf << std::endl;
@@ -187,7 +186,7 @@ void ScalarConverter::convert(std::string input)
 		int res = std::atoi(input.c_str());
 		char c = static_cast<char>(res);
 		float resf = static_cast<float>(res);
-		float resd = static_cast<double>(res);
+		double resd = static_cast<double>(res);
 		print_conversion(c, res, resf, resd, "", "");
 	}
 	else if (a == DOUBLE || a == 4)
