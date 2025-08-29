@@ -60,16 +60,18 @@ static int counting(std::string input, int flag)
 	{
 		if (input[i] == '+' || input[i] == '-')
 			countSign++;
-		if (input[i] == '.')
+		if (flag == 1 && input[i] == '.')
 			countDot++;
-		if (flag && input[i] == 'f')
+		if (flag == 2 && input[i] == 'f')
 			countF++;
 	}
-	if (countDot != 1 || countSign > 1 || countSign < 0)
+	if (flag && countDot != 1)
+		return 1;
+	if (countSign > 1 || countSign < 0)
 		return 1;
 	if (countSign && input[0] != '+' && input[0] != '-')
 		return 1;
-	if (flag && countF != 1)
+	if (flag == 2 && countF != 1)
 		return 1;
 	return 0;
 }
@@ -79,10 +81,15 @@ static int find_type(std::string input)
 	if (input.length() == 1)
 		return 0;
 	if (is_str_digit(input))
+	{
+		if (counting(input, 0))
+			return -1;
+		return 1;
+	}
 		return 1;
 	if (is_double(input))
 	{
-		if (counting(input, 0) || input[0] == '.'
+		if (counting(input, 1) || input[0] == '.'
 			|| input[input.length() -1] == '.')
 			return -2;
 		return 2;
@@ -91,18 +98,23 @@ static int find_type(std::string input)
 		return 4;
 	if (is_str_digits(input))
 	{
-		if (counting(input, 1) || input[0] == '.' || input[input.length() -1] != 'f'
+		if (counting(input, 2) || input[0] == '.' || input[input.length() -1] != 'f'
 			|| input[input.length() - 2] == '.')
 			return -3;
 		return 3;
 	}
 	else if (input == "nanf" || input == "+inff" || input == "-inff")
 		return 6;
-	return -1;
+	return -4;
 }
 
 static void print_error(int error)
 {
+	if (error == -1)
+	{
+		std::cout << RED "Error: Literal int is not formated correctly" RESET << std::endl;
+		return ;
+	}
 	if (error == -2)
 	{
 		std::cout << RED "Error: Literal double is not formated correctly" RESET << std::endl;
@@ -117,7 +129,7 @@ static void print_error(int error)
 
 void print_conversion(char c, int nb, float nbf, double nbd, std::string otherf, std::string other)
 {
-	std::cout << "char: ";
+	std::cout << GREEN "char: ";
 	if (other.length())
 		std::cout << "impossible" << std::endl;
 	else if (c % 256 >= 32 && c % 256 < 127)
@@ -125,13 +137,13 @@ void print_conversion(char c, int nb, float nbf, double nbd, std::string otherf,
 	else
 		std::cout << "Non displayable" << std::endl;
 
-	std::cout << "int: ";
+	std::cout << YELLOW "int: ";
 	if (other.length())
 		std::cout << "impossible" << std::endl;
 	else
 		std::cout << nb << std::endl;
 
-	std::cout << "float: ";
+	std::cout << BLUE "float: ";
 	if (other.length())
 		std::cout << otherf << std::endl;
 	else
@@ -141,7 +153,7 @@ void print_conversion(char c, int nb, float nbf, double nbd, std::string otherf,
 			std::cout << ".0";
 		std::cout << 'f' << std::endl;
 	}
-	std::cout << "double: ";
+	std::cout << PINK "double: ";
 	if (other.length())
 		std::cout << other << std::endl;
 	else
