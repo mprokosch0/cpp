@@ -4,7 +4,7 @@ CXX = c++
 
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
-SRCS = srcs/main.cpp srcs/ScalarConverter.cpp \
+SRCS = srcs/main.cpp srcs/ScalarConverter.cpp srcs/Parsing.cpp srcs/Print.cpp\
 
 OBJS_DIR = objs
 
