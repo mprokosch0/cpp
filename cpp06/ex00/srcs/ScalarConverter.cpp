@@ -60,16 +60,16 @@ static int counting(std::string input, int flag)
 	{
 		if (input[i] == '+' || input[i] == '-')
 			countSign++;
-		if (flag == 1 && input[i] == '.')
+		if (flag && input[i] == '.')
 			countDot++;
 		if (flag == 2 && input[i] == 'f')
 			countF++;
 	}
-	if (flag && countDot != 1)
-		return 1;
 	if (countSign > 1 || countSign < 0)
 		return 1;
 	if (countSign && input[0] != '+' && input[0] != '-')
+		return 1;
+	if (flag && countDot != 1)
 		return 1;
 	if (flag == 2 && countF != 1)
 		return 1;
@@ -86,7 +86,6 @@ static int find_type(std::string input)
 			return -1;
 		return 1;
 	}
-		return 1;
 	if (is_double(input))
 	{
 		if (counting(input, 1) || input[0] == '.'
