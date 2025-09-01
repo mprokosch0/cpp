@@ -56,7 +56,14 @@ void Print_float(std::string input)
 		std::cout << RED "overflow" << std::endl;
 	else
 		std::cout << nb << (nb == static_cast<int>(nb) ? ".0f" : "f") << std::endl;
-	std::cout << PINK "double: " << std::atof(input.c_str()) << std::endl;
+	double nb2 = std::atof(input.c_str());
+	std::cout << PINK "double: ";
+	if (nb2 < MIN_DOUBLE)
+		std::cout << RED "underflow" << std::endl;
+	else if (nb2 > MAX_DOUBLE)
+		std::cout << RED "overflow" << std::endl;
+	else
+		std::cout << nb2 << ((nb2 == static_cast<int>(nb2) && nb2 < 1000000) ? ".0" : "") << std::endl;
 }
 
 void Print_double(std::string input)
