@@ -1,7 +1,6 @@
 
 #include "../includes/iter.hpp"
 
-
 void printStr(char const &str)
 {
 	 std::cout << str << std::endl;
