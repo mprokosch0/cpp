@@ -39,8 +39,7 @@ static int isOperator(char c)
 
 static void whichOperator(char c, float &dest, float src)
 {
-	int a = (c == '+') ? 1 : (c == '-') ? 2 : (c == '*') ? 3 : 4;
-	switch (a)
+	switch ((c == '+') ? 1 : (c == '-') ? 2 : (c == '*') ? 3 : 4)
 	{
 		case 1:
 			dest += src;
