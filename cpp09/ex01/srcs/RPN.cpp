@@ -62,7 +62,6 @@ void RPN::calculate(std::string str)
 {
 	trim(str);
 	std::string::iterator it = str.begin();
-	int i = 0;
 	while (it != str.end())
 	{
 		if (*it != ' ' && !isdigit(*it) && !isOperator(*it))
@@ -88,7 +87,6 @@ void RPN::calculate(std::string str)
 			_pile.pop();
 			whichOperator(*it, _pile.top(), nb);
 		}
-		i++;
 		it++;
 	}
 	if (_pile.size() != 1) // if we hadn't enouth operator and the stack is left with more than a number
