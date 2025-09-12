@@ -5,6 +5,7 @@
 # include <iostream>
 # include <iomanip>
 # include <string>
+# include <algorithm>
 # include <stdlib.h>
 # include <list>
 # include <deque>
