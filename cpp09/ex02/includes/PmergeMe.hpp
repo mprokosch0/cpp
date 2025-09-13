@@ -31,7 +31,8 @@ class PmergeMe
 };
 
 template<typename Iterator, typename T>
-Iterator lower_bound_step(Iterator begin, Iterator end, const T& value, int step) {
+Iterator lower_bound_step(Iterator begin, Iterator end, const T& value, int step)
+{
     Iterator result = end;
 	Iterator it2 = begin;
 	Iterator it;
@@ -48,6 +49,8 @@ Iterator lower_bound_step(Iterator begin, Iterator end, const T& value, int step
     }
 	if (it == end && *it >= value)
 		result = it2;
+	else if (it == end)
+		result++;
     return result;
 }
 

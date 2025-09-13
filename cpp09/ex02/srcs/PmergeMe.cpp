@@ -144,8 +144,6 @@ static void binaryInsertion(std::list<int> &list, std::list<int> &pend, std::lis
 		std::list<int>::iterator it = list.begin();
 		std::advance(it, depth - 1);
 		it = lower_bound_step(it, range[i], *pos[i], depth);
-		if (it == range[i])
-			it++;
 		std::list<int>::iterator begin = pos[i];
 		std::list<int>::iterator end = pos[i];
 		std::advance(begin, -depth + 1);
