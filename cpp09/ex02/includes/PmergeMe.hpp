@@ -5,7 +5,6 @@
 # include <iostream>
 # include <iomanip>
 # include <string>
-# include <algorithm>
 # include <stdlib.h>
 # include <list>
 # include <deque>
@@ -30,5 +29,26 @@ class PmergeMe
 		static void	sortList(std::list<int> list);
 		static void	sortDeque(std::deque<int> deque);
 };
+
+template<typename Iterator, typename T>
+Iterator lower_bound_step(Iterator begin, Iterator end, const T& value, int step) {
+    Iterator result = end;
+	Iterator it2 = begin;
+	Iterator it;
+
+	std::advance(it2, -step + 1);
+    for (it = begin; it != end; std::advance(it, step))
+	{
+        if (*it >= value)
+		{
+            result = it2;
+            break;
+        }
+		std::advance(it2, step);
+    }
+	if (it == end && *it >= value)
+		result = it2;
+    return result;
+}
 
 #endif

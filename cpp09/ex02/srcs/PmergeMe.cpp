@@ -39,7 +39,7 @@ static int sortPairs(std::list<int> &list, int pair)
 {
 	//printList(list);
 	if (pair > static_cast<int>(list.size()))
-		return pair / 8;
+		return pair / 4;
 	std::list<int>::iterator it = list.begin();
 	std::list<int>::iterator a, b, tmp;
 	//std::cout << "-------" << pair << "-------" << std::endl;
@@ -64,7 +64,7 @@ static int sortPairs(std::list<int> &list, int pair)
 			it = a;
 		it++;
 	}
-	return pair;
+	return pair / 4;
 }
 
 static void initiateSort(std::list<int> &list, std::list<int> &pend, std::list<int> &trash, int depth)
@@ -92,25 +92,89 @@ static void initiateSort(std::list<int> &list, std::list<int> &pend, std::list<i
 	}
 }
 
-static void mergeInsert(std::list<int> list, int depth)
+static std::list<int>::iterator *insertionOrder(std::list<int> &pend, int depth)
+{
+	int nb = pend.size() / depth;
+	std::list<int>::iterator *tab = new std::list<int>::iterator[nb];
+	std::list<int>::iterator *tabIt = new std::list<int>::iterator[pend.size()];
+	int j1 = depth, j2 = depth, i = 0, j = 0;
+
+	for (std::list<int>::iterator it = pend.begin(); it != pend.end(); it++)
+		tabIt[i++] = it;
+	tab[j++] = tabIt[depth - 1];
+	while (j1 <= static_cast<int>(pend.size()))
+    {
+		i = j1;
+		while (i > j2)
+		{
+			tab[j++] = tabIt[i - 1];
+			i -= depth;
+		}
+        int next = j1 + 2 * j2;
+        j2 = j1;
+        j1 = next;
+    }
+	while (j2 < static_cast<int>(pend.size()))
+	{
+		j2 += depth;
+		tab[j++] = tabIt[j2 - 1];
+	}
+	delete [] tabIt;
+	return tab;
+}
+
+static std::list<int>::iterator *setRange(std::list<int> &list, std::list<int> &pend, std::list<int>::iterator *pos, int depth)
+{
+	int nb = pend.size() / depth;
+	std::list<int>::iterator *range = new std::list<int>::iterator[nb];
+	for (int i = 0; i < nb; i++)
+	{
+		range[i] = list.begin();
+		int index = std::distance(pend.begin(), pos[i]) - depth;
+		std::advance(range[i], 2 * depth + index);
+	}
+	return range;
+}
+
+static void binaryInsertion(std::list<int> &list, std::list<int> &pend, std::list<int>::iterator *pos, std::list<int>::iterator *range, int depth)
+{
+	int nb = pend.size() / depth;
+	for (int i = 0; i < nb; i++)
+	{
+		std::list<int>::iterator it = list.begin();
+		std::advance(it, depth - 1);
+		it = lower_bound_step(it, range[i], *pos[i], depth);
+		if (it == range[i])
+			it++;
+		std::list<int>::iterator begin = pos[i];
+		std::list<int>::iterator end = pos[i];
+		std::advance(begin, -depth + 1);
+		list.splice(it, pend, begin, ++end);
+	}
+}
+
+static void mergeInsert(std::list<int> &list, int depth)
 {
 	if (!depth)
 		return ;
-	std::list<int> trash, pend;
+	std::list<int> trash, pend;	
 	initiateSort(list, pend, trash, depth);
-	printList(list);
-	printList(pend);
-	printList(trash);
-	// while (pend.size() != 0)
-	// {
-		
-	// }
-	
+	if (pend.size())
+	{
+		std::list<int>::iterator *pos = insertionOrder(pend, depth);
+		std::list<int>::iterator *range = setRange(list, pend, pos, depth);
+		binaryInsertion(list, pend, pos, range, depth);
+		delete [] pos;
+		delete [] range;
+	}
+	list.splice(list.end(), trash, trash.begin(), trash.end());
+	mergeInsert(list, depth / 2);
 }
 
 void PmergeMe::sortList(std::list<int> list)
 {
 	int depth = sortPairs(list, 2);
 	mergeInsert(list, depth);
+	printList(list);
 	return ;
 }
