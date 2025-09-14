@@ -7,7 +7,7 @@
 # include <string>
 # include <stdlib.h>
 # include <list>
-# include <deque>
+# include <vector>
 
 # define GREEN "\033[32m"
 # define RESET "\033[0m"
@@ -26,9 +26,28 @@ class PmergeMe
 		~PmergeMe(void);
 
 	public:
-		static void	sortList(std::list<int> list);
-		static void	sortDeque(std::deque<int> deque);
+		template<typename Container>
+		static void	sortNbr(Container &list);
 };
+
+int		sortPairs(std::list<int> &list, int pair);
+void	mergeInsert(std::list<int> &list, int depth);
+
+int		sortPairs(std::vector<int> &list, int pair);
+void	mergeInsert(std::vector<int> &list, int depth);
+
+template<typename Container>
+void printList(Container list)
+{
+	typename Container::iterator it = list.begin();
+	while (it != list.end())
+	{
+		std::cout << *it << " ";
+		it++;
+	}
+	std::cout << std::endl;
+	return ;
+}
 
 template<typename Iterator, typename T>
 Iterator lower_bound_step(Iterator begin, Iterator end, const T& value, int step)
@@ -52,6 +71,16 @@ Iterator lower_bound_step(Iterator begin, Iterator end, const T& value, int step
 	else if (it == end)
 		result++;
     return result;
+}
+
+template<typename Container>
+void PmergeMe::sortNbr(Container &list)
+{
+	int depth = sortPairs(list, 2);
+	printList(list);
+	mergeInsert(list, depth);
+	printList(list);
+	return ;
 }
 
 #endif
