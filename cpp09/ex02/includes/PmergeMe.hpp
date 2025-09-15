@@ -5,8 +5,11 @@
 # include <iostream>
 # include <iomanip>
 # include <string>
+# include <exception>
+# include <algorithm>
 # include <stdlib.h>
 # include <list>
+# include <ctime>
 # include <vector>
 
 # define GREEN "\033[32m"
@@ -28,6 +31,23 @@ class PmergeMe
 	public:
 		template<typename Container>
 		static void	sortNbr(Container &list);
+		template<typename Container>
+		static void parsing(Container &list, char **input);
+
+	class OverflowFound: public std::exception
+	{
+		const char *what() const throw();
+	};
+
+	class InvalidCharFound: public std::exception
+	{
+		const char *what() const throw();
+	};
+
+	class DoubleNumberFound: public std::exception
+	{
+		const char *what() const throw();
+	};
 };
 
 int		sortPairs(std::list<int> &list, int pair);
@@ -36,51 +56,6 @@ void	mergeInsert(std::list<int> &list, int depth);
 int		sortPairs(std::vector<int> &list, int pair);
 void	mergeInsert(std::vector<int> &list, int depth);
 
-template<typename Container>
-void printList(Container list)
-{
-	typename Container::iterator it = list.begin();
-	while (it != list.end())
-	{
-		std::cout << *it << " ";
-		it++;
-	}
-	std::cout << std::endl;
-	return ;
-}
-
-template<typename Iterator, typename T>
-Iterator lower_bound_step(Iterator begin, Iterator end, const T& value, int step)
-{
-    Iterator result = end;
-	Iterator it2 = begin;
-	Iterator it;
-
-	std::advance(it2, -step + 1);
-    for (it = begin; it != end; std::advance(it, step))
-	{
-        if (*it >= value)
-		{
-            result = it2;
-            break;
-        }
-		std::advance(it2, step);
-    }
-	if (it == end && *it >= value)
-		result = it2;
-	else if (it == end)
-		result++;
-    return result;
-}
-
-template<typename Container>
-void PmergeMe::sortNbr(Container &list)
-{
-	int depth = sortPairs(list, 2);
-	printList(list);
-	mergeInsert(list, depth);
-	printList(list);
-	return ;
-}
+# include "PmergeMe.tpp"
 
 #endif

@@ -22,16 +22,31 @@ PmergeMe::~PmergeMe(void){}
 
 //Member functions----------------------------------------------------
 
+//Parsing exeptions
+
+const char *PmergeMe::DoubleNumberFound::what() const throw()
+{
+	return "\033[31mError: duplicate number in list found\033[0m";
+}
+
+const char *PmergeMe::OverflowFound::what() const throw()
+{
+	return "\033[31mError: Int overflow found\033[0m";
+}
+
+const char *PmergeMe::InvalidCharFound::what() const throw()
+{
+	return "\033[31mError: Invalid char in list found\033[0m";
+}
+
 //SORT FOR LIST
 
 int sortPairs(std::list<int> &list, int pair)
 {
-	//printList(list);
 	if (pair > static_cast<int>(list.size()))
 		return pair / 4;
 	std::list<int>::iterator it = list.begin();
 	std::list<int>::iterator a, b, tmp;
-	//std::cout << "-------" << pair << "-------" << std::endl;
 	while (it != list.end() || pair < static_cast<int>(list.size()))
 	{
 		a = b = it;
@@ -42,7 +57,6 @@ int sortPairs(std::list<int> &list, int pair)
 		std::advance(a, (remaining >= pair - 1) ? pair - 1 : remaining);
 		if (a == list.end())
 			return sortPairs(list, pair * 2);
-		//std::cout << *b << ", " << *a << std::endl;
 		if (*b > *a)
 		{
 			tmp = b;
@@ -169,6 +183,7 @@ static void replace(std::vector<int> &dst, std::vector<int> &src,
 	src.erase(first, last);
 	dst.insert(pos, tmp.begin(), tmp.end());
 }
+
 int sortPairs(std::vector<int> &list, int pair)
 {
 	if (pair > static_cast<int>(list.size()))
@@ -198,21 +213,28 @@ int sortPairs(std::vector<int> &list, int pair)
 
 static void initiateSort(std::vector<int> &list, std::vector<int> &pend, std::vector<int> &trash, int depth)
 {
-	int left = list.size() - 2 * depth;
 	int i = 2 * depth, tmp;
-	int j = 0, size = list.size();
+	int size = list.size();
+	int oui = 0;
 
 	while (i < size)
 	{
-		tmp = i + depth;
-		if (!(j % depth) && left - j < depth)
+
+		tmp = (i + depth < size) ? i + depth : size;
+		if (size - i < depth)
 		{
 			replace(trash, list, trash.end(), list.begin() + i, list.end());
 			break ;
 		}
-		if (!((j / depth) % 2))
+		if (!oui)
+		{
 			replace(pend, list, pend.end(), list.begin() + i, list.begin() + tmp);
-		j += depth;
+			i -= depth;
+			size -= depth;
+			oui = 1;
+		}
+		else
+			oui = 0;
 		i += depth;
 	}
 }
@@ -253,14 +275,16 @@ static std::vector<int> &setRange(std::vector<int> &pend, std::vector<int> &pos,
 static void binaryInsertion(std::vector<int> &list, std::vector<int> &pend, std::vector<int> &pos, std::vector<int> &range, int depth)
 {
 	int nb = pend.size() / depth;
+	std::vector<int> copy(list);
 	for (int i = 0; i < nb; i++)
 	{
 		std::vector<int>::iterator it = list.begin() + depth - 1;
 		std::vector<int>::iterator end = list.begin() + range[i];
-		it = lower_bound_step(it, end, pos[i], depth);
+		while (end != list.end() && *end != copy[range[i]])
+			end += depth;
+		it = lower_bound_step(it, end, pend[pos[i]], depth);
 		std::vector<int>::iterator begin = pend.begin() + pos[i];
-		replace(list, pend, it, begin + 1 - depth, pend.begin() + pos[i]);
-		//list.splice(it, pend, begin, ++end);
+		list.insert(it, begin + 1 - depth, ++begin);
 	}
 }
 
@@ -270,18 +294,12 @@ void mergeInsert(std::vector<int> &list, int depth)
 		return ;
 	std::vector<int> trash, pend;
 	initiateSort(list, pend, trash, depth);
-	std::cout << "depth: " << depth << std::endl;
-	printList(list);
-	printList(pend);
-	printList(trash);
 	if (pend.size())
 	{
 		int nb = pend.size() / depth;
 		std::vector<int> pos(nb), range(nb);
 		insertionOrder(pend, pos, depth);
 		setRange(pend, pos, range, depth);
-		printList(pos);
-		printList(range);
 		binaryInsertion(list, pend, pos, range, depth);
 	}
 	replace(list, trash, list.end(), trash.begin(), trash.end());

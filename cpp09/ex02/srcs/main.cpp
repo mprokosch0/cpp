@@ -1,57 +1,42 @@
 #include "../includes/PmergeMe.hpp"
 
-int main(void)
+int main(int ac, char **av)
 {
+	if (ac < 2)
+	{
+		std::cout << RED "Error: Wrong number of argument, expected at leat 1 got 0" << std::endl;
+		return 1;
+	}
 	std::list<int> list;
 	std::vector<int> array;
-	// list.push_back(11);
-	// list.push_back(2);
-	// list.push_back(17);
-	// list.push_back(0);
-	// list.push_back(16);
-	// list.push_back(8);
-	// list.push_back(6);
-	// list.push_back(15);
-	// list.push_back(10);
-	// list.push_back(3);
-	// list.push_back(21);
-	// list.push_back(1);
-	// list.push_back(18);
-	// list.push_back(9);
-	// list.push_back(14);
-	// list.push_back(19);
-	// list.push_back(12);
-	list.push_back(5);
-	list.push_back(4);
-	list.push_back(20);
-	list.push_back(13);
-	list.push_back(7);
-	
-	// array.push_back(11);
-	// array.push_back(2);
-	// array.push_back(17);
-	// array.push_back(0);
-	// array.push_back(16);
-	// array.push_back(8);
-	// array.push_back(6);
-	// array.push_back(15);
-	// array.push_back(10);
-	// array.push_back(3);
-	// array.push_back(21);
-	// array.push_back(1);
-	// array.push_back(18);
-	// array.push_back(9);
-	// array.push_back(14);
-	// array.push_back(19);
-	// array.push_back(12);
-	array.push_back(5);
-	array.push_back(4);
-	array.push_back(20);
-	array.push_back(13);
-	array.push_back(7);
-	std::cout << BLUE "-----LIST-----" RESET << std::endl << std::endl;
+	try
+	{
+		PmergeMe::parsing(list, av);
+		PmergeMe::parsing(array, av);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+		return 2;
+	}
+
+	std::cout << BLUE "List before   : " GREEN;
+	printList(list);
+	std::cout << BLUE "Vector before : " PINK;
+	printList(array);
+	std::clock_t start1 = std::clock();
 	PmergeMe::sortNbr(list);
-	std::cout << std::endl << BLUE "-----VECTOR-----" RESET << std::endl << std::endl;
+	std::clock_t end1 = std::clock();
+	std::clock_t start2 = std::clock();
 	PmergeMe::sortNbr(array);
+	std::clock_t end2 = std::clock();
+	double duration1 = double(end1 - start1) * 1000000 / CLOCKS_PER_SEC;
+	double duration2 = double(end2 - start2) * 1000000 / CLOCKS_PER_SEC;
+	std::cout << YELLOW "List after    : " GREEN;
+	printList(list);
+	std::cout << YELLOW "Vector after  : " PINK;
+	printList(array);
+	std::cout << RESET "Time to process the range with " BLUE "std::list: " RESET << duration1 << " usec" << std::endl;
+	std::cout << "Time to process the range with " YELLOW "std::vector: " RESET << duration2 << " usec" << std::endl;
 	return 0;
 }
